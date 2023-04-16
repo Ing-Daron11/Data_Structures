@@ -1,3 +1,4 @@
+package ui;
 import dataStructures.Queue;
 
 public class Main {
