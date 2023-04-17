@@ -1,5 +1,8 @@
-package model;
+package test;
 
+import model.Data;
+import model.Dog;
+import model.HashTable;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,10 +23,15 @@ class HashTableTest {
         //Initialize
         Dog dog1 = new Dog("bruno");
         Data dt1 = new Data(dog1, 2);
+        Data dt2 = new Data(3, dog1);
+
         //Act
         hashTable1.placeData(dt1);
+        hashTable1.placeData(dt1);
+
         //Assert
         assertEquals(dt1,hashTable1.findData(dog1));
+
     }
     @Test
     void placeDataTest2() {
@@ -104,11 +112,40 @@ class HashTableTest {
     }
     @Test
     void deleteDataTest1() {
+        //Initialize
+        Data dta1 = new Data("José", "Jojoa");
+        Data dta2 = new Data("Ariel", "La Sirenita");
+        //act
+        Data dataDeleted = hashTable1.deleteData("José");
+        assertEquals(null, dataDeleted);
+
     }
     @Test
     void deleteDataTest2() {
+        //Initialize
+        Data dta1 = new Data("José", "Vera");
+        Data dta2 = new Data('s', 3);
+        //act
+        hashTable1.placeData(dta1);
+        hashTable1.placeData(dta2);
+        //assert
+        Data dataDeleted2 = hashTable1.deleteData("José");
+        assertEquals(dta1, dataDeleted2);
     }
     @Test
     void deleteDataTest3() {
+        Dog dogo1 = new Dog("Firulais");
+        Data data1 = new Data("Samuel", dogo1);
+        Dog dogo2 = new Dog("Aaron");
+        Data data2 = new Data(dogo2, "Óscar");
+
+        hashTable1.placeData(data1);
+        hashTable1.placeData(data2);
+        hashTable1.deleteData("Samuel");
+        hashTable1.deleteData(data2);
+
+        assertEquals(null, hashTable1.findData("Samuel"));
+        assertEquals(null, hashTable1.findData(data2));
+        assertEquals(null, hashTable1.findData(new Dog("Aaron")));
     }
 }
